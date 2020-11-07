@@ -38,7 +38,6 @@ def main():
     config_file = utils.get_path_to_config_file()
     
     app = ui.QApplication(sys.argv)
-    Form = ui.QWidget()
     
     if(os.path.exists(config_file)):
         config = utils.load_data(config_file)
