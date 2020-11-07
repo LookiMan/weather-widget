@@ -17,8 +17,8 @@ import weather_parser
 # 
 def update_weather(parser, widget, config):
     swap_file = utils.get_path_to_swap_file()
-    # data = parser.get_weather()
-    data = None
+    data = parser.get_weather()
+
     if(not data):
         # Если возникла ошибка при получении данных с sinoptic.ua, загрузит сохраненные данные
         if(os.path.exists(swap_file)):
