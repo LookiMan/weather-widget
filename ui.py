@@ -242,15 +242,16 @@ class Widget:
 
         # 
         def release(event):
-            move.__dict__.update({'b_move': False})
-            widget.setCursor(cursorShape)
-            x = event.globalX() + move.x_korr - move.lastPoint.x()
-            y = event.globalY() + move.y_korr - move.lastPoint.y()
-            if((x, y) != self._config['position']):
-                self._config.update({'position': (x, y)})
-                utils.save_data(utils.get_path_to_config_file(), self._config)
+            if(hasattr(move, 'x_korr') and hasattr(move, 'y_korr')):
+                move.__dict__.update({'b_move': False})
+                widget.setCursor(cursorShape)
+                x = event.globalX() + move.x_korr - move.lastPoint.x()
+                y = event.globalY() + move.y_korr - move.lastPoint.y()
+                if((x, y) != self._config['position']):
+                    self._config.update({'position': (x, y)})
+                    utils.save_data(utils.get_path_to_config_file(), self._config)
 
-            return releaseSource(event)
+                return releaseSource(event)
 
         #
         def double_click(event):
@@ -725,6 +726,7 @@ class Settings:
             if(self.is_valid_city(city)):
                 self.config.update({'city': city})
                 self.parent.parser.set_city(city)
+                self.parent.set_config(self.config)
                 data = self.parent.parser.get_weather()
                 self.parent.update(data)
                 utils.save_data(utils.get_path_to_config_file(), self.config)
